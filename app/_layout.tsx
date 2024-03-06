@@ -11,13 +11,11 @@ import AuthContextProvider from '@/contexts/AuthContext';
 export { ErrorBoundary } from 'expo-router';
 
 const user = auth().currentUser;
-console.log(user);
 
 export const unstable_settings = {
   initialRouteName: user ? '/(tabs)/' : '/',
 };
 
-console.log(unstable_settings.initialRouteName);
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

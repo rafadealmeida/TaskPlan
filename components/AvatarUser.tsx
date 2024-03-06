@@ -13,7 +13,6 @@ export const AvatarUser = ({
   size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | undefined;
 }) => {
   const user = useAuthContext();
-  console.log(user)
   return (
     <Avatar bgColor="$indigo600" size={size} marginRight={4}>
       {user?.photoURL && (

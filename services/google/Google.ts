@@ -25,7 +25,7 @@ async function SigIn() {
 
     setTimeout(() => {
       if (auth()?.currentUser !== null) {
-        auth().currentUser.updateProfile({
+        auth().currentUser?.updateProfile({
           displayName: responseUser.user.givenName,
           photoURL: responseUser.user.photo,
         });
@@ -34,8 +34,6 @@ async function SigIn() {
     // Sign-in the user with the credential
     return auth().signInWithCredential(googleCredential);
   } catch (error) {
-    Alert.alert('Erro', JSON.stringify(error));
-    console.log(error.message);
     throw error;
   }
 }
