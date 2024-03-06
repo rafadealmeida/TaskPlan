@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "487766878338",
+    "project_id": "taskplan-2623b",
+    "storage_bucket": "taskplan-2623b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:487766878338:android:7626f0a463faf6ada9ac9b",
+        "android_client_info": {
+          "package_name": "com.rafadealmeida.taskplan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "487766878338-dbkevbbk1r5v1mjj56ne2nfsbmpgi92j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rafadealmeida.taskplan",
+            "certificate_hash": "ca45822d83dea93c76c97c856bc8eb9584ce171b"
+          }
+        },
+        {
+          "client_id": "487766878338-6d746apge6c47g3orjno2jrla50r8eae.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4fD_WLRNzgUoMu-5UYA325G6adrHyEIk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "487766878338-6d746apge6c47g3orjno2jrla50r8eae.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "487766878338-t898lhash6907pq8ou3u3m9kc9pckudd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.rafadealmeida.taskplan"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
