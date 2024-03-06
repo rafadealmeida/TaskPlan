@@ -43,7 +43,7 @@ cd android
 ./gradlew signingReport
 ```
 
-2. Copie as chaves de assinatura SHA geradas e atualize as configurações do
+2. Copie as chaves de assinatura SHA, tanto de debug, como a de realese geradas e atualize as configurações do
    Firebase.
 
 3. Baixe os novos arquivos de configuração gerados pelo Firebase.
@@ -56,6 +56,8 @@ npx expo install @react-native-google-signin/google-signin
 
 5. Execute novamente o comando `npx expo prebuild --clean` para atualizar as
    configurações.
+
+6. Lembre de verificar se package_name do arquivo de configuração do Google, tanto Android quanto IOS, está igual ao package do arquivo app.json. Se os nomes estiverem iguais dará erro ao buildar. Caso há descoformidade, copie o package_name do arquivo de congifuração do Google (google-services.json, por exemplo) e cole na propriedade package, no objeto android.
 
 ## Instalação da Biblioteca de UI
 

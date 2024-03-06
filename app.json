@@ -12,9 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "googleServicesFile": "./GoogleService-Info.plist"
@@ -25,17 +23,14 @@
         "backgroundColor": "#ffffff"
       },
       "googleServicesFile": "./google-services.json",
-      "package": "com.rafaalmeida.TaskPlan"
+      "package": "com.rafadealmeida.taskplan"
     },
     "web": {
       "bundler": "metro",
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": [
-      "expo-router",
-      "@react-native-firebase/app"
-    ],
+    "plugins": ["expo-router", "@react-native-firebase/app"],
     "experiments": {
       "typedRoutes": true
     }

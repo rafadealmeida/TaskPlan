@@ -1,22 +1,21 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { GluestackUIProvider} from '@gluestack-ui/themed';
+import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { config } from '@gluestack-ui/config';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Stack, router } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import auth from '@react-native-firebase/auth';
+import AuthContextProvider from '@/contexts/AuthContext';
 
-// import { useColorScheme } from '@/components/useColorScheme';
+export { ErrorBoundary } from 'expo-router';
 
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from 'expo-router';
+const user = auth().currentUser;
 
 export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+  initialRouteName: user ? '/(tabs)/' : '/',
 };
+
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -33,7 +32,10 @@ export default function RootLayout() {
   }, [error]);
 
   useEffect(() => {
-    if (loaded) {
+    if (loaded && user) {
+      SplashScreen.hideAsync();
+      router.push('/(tabs)/');
+    } else if (loaded) {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
@@ -50,10 +52,13 @@ function RootLayoutNav() {
 
   return (
     <GluestackUIProvider config={config}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
+      <AuthContextProvider>
+        <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="perfil" options={{ presentation: 'modal' }} />
+        </Stack>
+      </AuthContextProvider>
     </GluestackUIProvider>
   );
 }
