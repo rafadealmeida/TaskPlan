@@ -1,11 +1,16 @@
 import { Google } from '@/services/google/Google';
 import { VStack, Heading, Button, ButtonText } from '@gluestack-ui/themed';
-import { useRouter } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 
 export default function Home() {
   const router = useRouter();
   return (
     <VStack alignItems="center">
+      <Stack.Screen
+        options={{
+        title:'Tarefas'
+        }}
+      />
       <VStack
         mt={'10%'}
         width={'100%'}
@@ -18,15 +23,6 @@ export default function Home() {
         borderTopLeftRadius={100}
       >
         <Heading pb={10}>Home</Heading>
-        <Button
-          size="sm"
-          onPress={() => {
-            Google.Logout();
-            router.replace('/');
-          }}
-        >
-          <ButtonText>Sair da conta</ButtonText>
-        </Button>
       </VStack>
     </VStack>
   );

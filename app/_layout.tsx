@@ -1,22 +1,23 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { GluestackUIProvider} from '@gluestack-ui/themed';
+import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { config } from '@gluestack-ui/config';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Stack, router } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-import auth from "@react-native-firebase/auth";
+import auth from '@react-native-firebase/auth';
+import AuthContextProvider from '@/contexts/AuthContext';
 
-
-export {
-  ErrorBoundary,
-} from 'expo-router';
+export { ErrorBoundary } from 'expo-router';
 
 const user = auth().currentUser;
+console.log(user);
 
 export const unstable_settings = {
-  initialRouteName: user ? '(tabs)':'/',
+  initialRouteName: user ? '/(tabs)/' : '/',
 };
+
+console.log(unstable_settings.initialRouteName);
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -33,7 +34,10 @@ export default function RootLayout() {
   }, [error]);
 
   useEffect(() => {
-    if (loaded) {
+    if (loaded && user) {
+      SplashScreen.hideAsync();
+      router.push('/(tabs)/');
+    } else if (loaded) {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
@@ -50,11 +54,13 @@ function RootLayoutNav() {
 
   return (
     <GluestackUIProvider config={config}>
-      <Stack>
-        <Stack.Screen name="login" options={{ headerShown: false}} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
+      <AuthContextProvider>
+        <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="perfil" options={{ presentation: 'modal' }} />
+        </Stack>
+      </AuthContextProvider>
     </GluestackUIProvider>
   );
 }

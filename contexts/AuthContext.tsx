@@ -5,9 +5,9 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import auth from '@react-native-firebase/auth';
+import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
-export const AuthContext = createContext<{} | User>({});
+export const AuthContext = createContext<FirebaseAuthTypes.User | null>(null);
 
 export const useAuthContext = () => useContext(AuthContext);
 
@@ -16,10 +16,10 @@ export default function AuthContextProvider({
 }: {
   children: JSX.Element;
 }): React.JSX.Element {
-  const [user, setUser] = useState<User | null>(null);
-  console.log("UserState", user);
+  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
+  console.log('UserState', user);
 
-  function onAuthStateChanged(user) {
+  function onAuthStateChanged(user: React.SetStateAction<FirebaseAuthTypes.User | null>) {
     setUser(user);
   }
 
@@ -28,7 +28,5 @@ export default function AuthContextProvider({
     return subscriber; // unsubscribe on unmount
   }, []);
 
-  return (
-    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
 }

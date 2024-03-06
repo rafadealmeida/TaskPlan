@@ -43,7 +43,7 @@ cd android
 ./gradlew signingReport
 ```
 
-2. Copie as chaves de assinatura SHA geradas e atualize as configurações do
+2. Copie as chaves de assinatura SHA, tanto de debug, como a de realese geradas e atualize as configurações do
    Firebase.
 
 3. Baixe os novos arquivos de configuração gerados pelo Firebase.

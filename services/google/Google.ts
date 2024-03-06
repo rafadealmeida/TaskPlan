@@ -20,7 +20,7 @@ async function SigIn() {
       responseUser.idToken,
     );
     setTimeout(() => {
-      router.push('/');
+      router.push('/(tabs)/');
     }, 300);
 
     setTimeout(() => {

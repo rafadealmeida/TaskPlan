@@ -68,7 +68,9 @@ export default function SignIn() {
           mt={40}
         >
           <GoogleLogo />
-          <ButtonText ml={4} color="$white">Fazer login com o Google</ButtonText>
+          <ButtonText ml={4} color="$white">
+            Fazer login com o Google
+          </ButtonText>
         </Button>
       </VStack>
     </VStack>
