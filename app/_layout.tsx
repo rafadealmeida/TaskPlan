@@ -1,5 +1,5 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { GluestackUIProvider, Text, Box } from '@gluestack-ui/themed';
+import { GluestackUIProvider} from '@gluestack-ui/themed';
 import { config } from '@gluestack-ui/config';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
