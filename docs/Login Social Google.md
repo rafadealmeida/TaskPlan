@@ -1,6 +1,17 @@
 ## Configuração Inicial
 
-1. Crie a função responsável pelo Login da Google :
+1. Devemos iniciar a configuração do Google
+>**Lembrando que webClientId deveria ficar em uma variável de ambiente e não ser versionado, assim como os arquivos de configuração do firebase** :
+```typescript
+  GoogleSignin.configure({
+  profileImageSize: 340,
+  webClientId:
+    '487766878338-6d746apge6c47g3orjno2jrla50r8eae.apps.googleusercontent.com',
+  offlineAccess: true,
+});
+```
+
+2. Crie a função responsável pelo Login da Google :
 
 ```typescript
 //resto do código
@@ -16,7 +27,7 @@
   return auth().signInWithCredential(googleCredential);
 ```
 
-2. Se o login social for bem sucedido, usamos o método auth do Firebase para
+3. Se o login social for bem sucedido, usamos o método auth do Firebase para
    atualizar o usuário atual, e redirecionamos o usuário a mpágina inicial do
    aplicativo
 
@@ -35,7 +46,7 @@
       }, 1000);
    ```
 
-3. Crie a função responsável pelo Logout da Google :
+4. Crie a função responsável pelo Logout da Google :
 
    ```typescript
    async function Logout() {
@@ -44,7 +55,7 @@
    }
    ```
 
-4. Criamos um contexto de usuário para atualizar o Avatar quando o usuário
+5. Criamos um contexto de usuário para atualizar o Avatar quando o usuário
    logar. Usamos o método onAuthStateChanged para chegar as modificações que
    pode ocorrer no usuário e atualizar o state, que será atualizado em toda a aplicação.
 

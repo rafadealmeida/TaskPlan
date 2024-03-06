@@ -1,10 +1,9 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import { router } from 'expo-router';
-import { Alert } from 'react-native';
 
 GoogleSignin.configure({
-  profileImageSize: 120,
+  profileImageSize: 340,
   webClientId:
     '487766878338-6d746apge6c47g3orjno2jrla50r8eae.apps.googleusercontent.com',
   offlineAccess: true,
