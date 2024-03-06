@@ -1,5 +1,4 @@
 import React, {
-  Children,
   createContext,
   useContext,
   useEffect,
@@ -17,7 +16,6 @@ export default function AuthContextProvider({
   children: JSX.Element;
 }): React.JSX.Element {
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
-  console.log('UserState', user);
 
   function onAuthStateChanged(user: React.SetStateAction<FirebaseAuthTypes.User | null>) {
     setUser(user);
@@ -25,7 +23,7 @@ export default function AuthContextProvider({
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
+    return subscriber;
   }, []);
 
   return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
