@@ -1,10 +1,10 @@
+import { AddTask } from '@/components/ToDo/AddTask';
 import { Page } from '@/components/Patterns/Page';
-import { Google } from '@/services/google/Google';
-import { VStack, Heading, Button, ButtonText } from '@gluestack-ui/themed';
+import { TodoItem } from '@/components/ToDo/TodoItem';
+import { VStack, Heading, FlatList } from '@gluestack-ui/themed';
 import { Stack, useRouter } from 'expo-router';
 
 export default function Home() {
-  const router = useRouter();
   return (
     <Page>
       <Stack.Screen
@@ -22,9 +22,17 @@ export default function Home() {
         height={'100%'}
         space="md"
         alignItems="center"
-        justifyContent={'center'}
+        justifyContent="flex-start"
+        mt="$10"
       >
-        <Heading pb={10}>Home</Heading>
+        <AddTask />
+        <FlatList
+          data={[
+            1, 2, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+            20,
+          ]}
+          renderItem={({ item }) => <TodoItem title="Estudar Docker" />}
+        />
       </VStack>
     </Page>
   );
