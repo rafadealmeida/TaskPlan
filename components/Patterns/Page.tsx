@@ -1,5 +1,4 @@
 import { VStack } from '@gluestack-ui/themed';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const Page = ({ children }: { children: React.ReactNode }) => {
   return (
