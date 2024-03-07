@@ -1,6 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
-import { Platform } from 'react-native';
-
 import { ButtonText, Heading, Button, VStack } from '@gluestack-ui/themed';
 import { Stack, router } from 'expo-router';
 import { AvatarUser } from '@/components/AvatarUser';
