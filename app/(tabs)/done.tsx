@@ -1,13 +1,16 @@
 import { StyleSheet } from 'react-native';
 
 import { Text, View } from '@gluestack-ui/themed';
+import { Page } from '@/components/Patterns/Page';
 
 export default function TabTwoScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator}  />
-    </View>
+    <Page>
+      <View style={styles.container}>
+        <Text style={styles.title}>Tab Two</Text>
+        <View style={styles.separator} />
+      </View>
+    </Page>
   );
 }
 

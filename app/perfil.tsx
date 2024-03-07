@@ -6,37 +6,45 @@ import { Stack, router } from 'expo-router';
 import { AvatarUser } from '@/components/AvatarUser';
 import auth from '@react-native-firebase/auth';
 import { Google } from '@/services/google/Google';
+import { Page } from '@/components/Patterns/Page';
 
 export default function Perfil() {
   const user = auth().currentUser;
   return (
-    <VStack
-      alignItems="center"
-      w={'100%'}
-      space='3xl'
-      mt={10}
-    >
-      <Stack.Screen
-        options={{
-          title: 'Perfil',
-        }}
-      />
-      <VStack alignItems="center">
-        <AvatarUser size={'xl'} />
-        <Heading>{user?.displayName}</Heading>
-      </VStack>
-      <Button
-        size="sm"
-        onPress={() => {
-          Google.Logout();
-          router.replace('/');
-        }}
+    <Page>
+      <VStack
+        alignItems="center"
+        justifyContent='center'
+        w={'100%'}
+        h={'100%'}
+        space="3xl"
+        // mt={10}
       >
-        <ButtonText>Sair da conta</ButtonText>
-      </Button>
+        <Stack.Screen
+          options={{
+            title: 'Perfil',
+            // headerTintColor:'#FFF',
+            // headerStyle:{
+            //   backgroundColor:'#2F2F2F'
+            // }
+          }}
+        />
+        <VStack alignItems="center">
+          <AvatarUser size={'xl'} />
+          <Heading>{user?.displayName}</Heading>
+        </VStack>
+        <Button
+          size="sm"
+          onPress={() => {
+            Google.Logout();
+            router.replace('/');
+          }}
+        >
+          <ButtonText>Sair da conta</ButtonText>
+        </Button>
 
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
-      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
-    </VStack>
+        {/* <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} /> */}
+      </VStack>
+    </Page>
   );
 }

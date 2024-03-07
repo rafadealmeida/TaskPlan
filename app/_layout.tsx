@@ -1,5 +1,5 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { GluestackUIProvider } from '@gluestack-ui/themed';
+import { GluestackUIProvider, useColorMode } from '@gluestack-ui/themed';
 import { config } from '@gluestack-ui/config';
 import { useFonts } from 'expo-font';
 import { Stack, router } from 'expo-router';
@@ -7,6 +7,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import auth from '@react-native-firebase/auth';
 import AuthContextProvider from '@/contexts/AuthContext';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export { ErrorBoundary } from 'expo-router';
 
@@ -15,7 +16,6 @@ const user = auth().currentUser;
 export const unstable_settings = {
   initialRouteName: user ? '/(tabs)/' : '/',
 };
-
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -51,13 +51,19 @@ function RootLayoutNav() {
   // const colorScheme = useColorScheme();
 
   return (
-    <GluestackUIProvider config={config}>
+    <GluestackUIProvider colorMode="dark" config={config}>
       <AuthContextProvider>
-        <Stack>
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="perfil" options={{ presentation: 'modal' }} />
-        </Stack>
+        <SafeAreaProvider>
+          <Stack screenOptions={{
+            contentStyle:{
+              backgroundColor:'#2F2F2F'
+            }
+          }}>
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="perfil" options={{ presentation: 'modal' }} />
+          </Stack>
+        </SafeAreaProvider>
       </AuthContextProvider>
     </GluestackUIProvider>
   );
