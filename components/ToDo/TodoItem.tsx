@@ -5,19 +5,30 @@ import {
   CheckboxIcon,
   CheckIcon,
   CheckboxLabel,
-  Button,
-  ButtonIcon,
-  EditIcon,
-  TrashIcon,
 } from '@gluestack-ui/themed';
 import { ModalEdit } from './ModalEdit';
 import { ModalDelete } from './ModalDelete';
-export const TodoItem = ({ title }: { title: string }) => {
+import { Task } from '@/services/firebase/controller/Task';
+export const TodoItem = ({
+  title,
+  id,
+  complete,
+}: {
+  title: string;
+  id: string;
+  complete: boolean;
+}) => {
+  const editTask = async () => {
+    await Task.toggleStatus(id, !complete);
+  };
+
   return (
     <HStack justifyContent="center" mr={'6%'}>
       <HStack width={'80%'} justifyContent="flex-start">
         <Checkbox
-          value={'done'}
+          value={`${complete}`}
+          isChecked={complete}
+          onChange={editTask}
           aria-label="CheckBox para marcar se a tarefa está feita ou não"
         >
           <CheckboxIndicator
@@ -49,8 +60,8 @@ export const TodoItem = ({ title }: { title: string }) => {
         width={'10%'}
         alignItems="center"
       >
-        <ModalEdit title={title} />
-        <ModalDelete title={title} />
+        <ModalEdit title={title} id={id} />
+        <ModalDelete title={title} id={id} />
         {/* <Button borderRadius="$full" size="lg" p="$3.5" bg="$" width={5}>
           <ButtonIcon as={EditIcon} />
         </Button> */}

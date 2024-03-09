@@ -19,10 +19,23 @@ import {
   Input,
   InputField,
 } from '@gluestack-ui/themed';
+import { Task } from '@/services/firebase/controller/Task';
 
-export const ModalEdit = ({title}:{title:string}) => {
+export const ModalEdit = ({ title, id }: { title: string; id: string }) => {
   const [showModal, setShowModal] = useState(false);
   const ref = React.useRef(null);
+  const [inputValue, setInputValue] = useState<string>(title);
+  const [isInvalid, setIsInvalid] = useState<boolean>(false);
+
+  const editTask = async () => {
+    if (inputValue !== '') {
+      await Task.edit(id, inputValue);
+      setIsInvalid(false);
+      clearName();
+    } else setIsInvalid(true);
+  };
+
+  const clearName = () => setInputValue('');
   return (
     <Center>
       <Button
@@ -52,12 +65,18 @@ export const ModalEdit = ({title}:{title:string}) => {
             </ModalCloseButton>
           </ModalHeader>
           <ModalBody>
-            <Input
-              variant="outline"
-              size="md"
-            >
-              <InputField placeholder="Digite o nome da tarefa" value={title} />
+            <Input variant="outline" size="md" isInvalid={isInvalid}>
+              <InputField
+                placeholder="Digite o nome da tarefa"
+                value={inputValue}
+                onChangeText={(text) => setInputValue(text)}
+              />
             </Input>
+            {isInvalid && (
+              <Text color="$red400" size="xs">
+                O nome da tarefa é obrigatório
+              </Text>
+            )}
           </ModalBody>
           <ModalFooter>
             <Button
@@ -76,6 +95,7 @@ export const ModalEdit = ({title}:{title:string}) => {
               action="positive"
               borderWidth="$0"
               onPress={() => {
+                editTask();
                 setShowModal(false);
               }}
             >

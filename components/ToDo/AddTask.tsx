@@ -1,3 +1,4 @@
+import { Task } from '@/services/firebase/controller/Task';
 import {
   Button,
   ButtonText,
@@ -8,10 +9,26 @@ import {
   InputSlot,
   SearchIcon,
   VStack,
+  Text,
 } from '@gluestack-ui/themed';
-import React from 'react';
+import React, { useState } from 'react';
 
 export const AddTask = () => {
+  const [inputValue, setInputValue] = useState<string>('');
+  const [isInvalid, setIsInvalid] = useState<boolean>(false);
+
+  const createTask = async () => {
+    console.log('task');
+    if (inputValue !== '') {
+      await Task.add(inputValue);
+      setIsInvalid(false);
+      clearName();
+    } else setIsInvalid(true);
+  };
+  const clearName = () => {
+    setInputValue('');
+  };
+
   return (
     <VStack w="$80" space="lg" alignSelf="center">
       <Input
@@ -20,8 +37,13 @@ export const AddTask = () => {
         size="sm"
         bg="$backgroundDark800"
         h={45}
+        isInvalid={isInvalid}
       >
-        <InputField placeholder="Nome da Tarefa" />
+        <InputField
+          placeholder="Nome da Tarefa"
+          value={inputValue}
+          onChangeText={(text) => setInputValue(text)}
+        />
         <InputSlot pr="$1.5">
           <Button
             size="xs"
@@ -31,10 +53,15 @@ export const AddTask = () => {
             rounded={10}
             my={10}
           >
-            <ButtonText>Adicionar</ButtonText>
+            <ButtonText onPress={createTask}>Adicionar</ButtonText>
           </Button>
         </InputSlot>
       </Input>
+      {isInvalid && (
+        <Text color="$red400" size="xs">
+          O nome da tarefa é obrigatório
+        </Text>
+      )}
     </VStack>
   );
 };

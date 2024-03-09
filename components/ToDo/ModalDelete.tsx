@@ -20,10 +20,20 @@ import {
   InputField,
   TrashIcon,
 } from '@gluestack-ui/themed';
+import { Task } from '@/services/firebase/controller/Task';
 
-export const ModalDelete = ({ title }: { title: string }) => {
+export const ModalDelete = ({ title, id }: { title: string; id: string }) => {
   const [showModal, setShowModal] = useState(false);
   const ref = React.useRef(null);
+  // console.log(title, id);
+
+  const deleteTask = async () => {
+    try {
+      await Task.remove(id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Center>
       <Button
@@ -72,6 +82,7 @@ export const ModalDelete = ({ title }: { title: string }) => {
               action="negative"
               borderWidth="$0"
               onPress={() => {
+                deleteTask();
                 setShowModal(false);
               }}
             >

@@ -14,6 +14,7 @@ async function SigIn() {
     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
 
     const responseUser = await GoogleSignin.signIn();
+    console.log(responseUser);
 
     const googleCredential = auth.GoogleAuthProvider.credential(
       responseUser.idToken,
