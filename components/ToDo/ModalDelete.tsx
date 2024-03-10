@@ -28,7 +28,7 @@ export const ModalDelete = ({ title, id }: { title: string; id: string }) => {
       await Task.remove(id);
       setShowModal(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   return (

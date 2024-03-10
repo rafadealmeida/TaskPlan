@@ -5,6 +5,8 @@ import {
   CheckboxIcon,
   CheckIcon,
   CheckboxLabel,
+  Text,
+  VStack,
 } from '@gluestack-ui/themed';
 import { ModalEdit } from './ModalEdit';
 import { ModalDelete } from './ModalDelete';
@@ -14,11 +16,13 @@ export const TodoItem = ({
   id,
   complete,
   createdAt,
+  editable,
 }: {
   title: string;
   id: string;
   complete: boolean;
   createdAt: any;
+  editable: boolean;
 }) => {
   const editTask = async () => {
     await Task.toggleStatus(id, !complete);
@@ -38,7 +42,8 @@ export const TodoItem = ({
         <Checkbox
           value={`${complete}`}
           isChecked={complete}
-          onChange={editTask}
+          // isDisabled={}
+          onChange={() => (editable ? editTask() : null)}
           aria-label="CheckBox para marcar se a tarefa está feita ou não"
           ml={'-$5'}
         >
@@ -62,19 +67,28 @@ export const TodoItem = ({
               }}
             />
           </CheckboxIndicator>
-          <CheckboxLabel>{title}</CheckboxLabel>
+          <VStack justifyContent="center" alignItems="flex-start">
+            <CheckboxLabel>{title}</CheckboxLabel>
+            <Text size="xs">
+              {createdAt?.toDate()?.toLocaleDateString('pt-Br', {
+                dateStyle: 'medium',
+              })}
+            </Text>
+          </VStack>
         </Checkbox>
       </HStack>
-      <HStack
-        space="xs"
-        justifyContent="flex-start"
-        width={'10%'}
-        alignItems="center"
-        pl={'$6'}
-      >
-        <ModalEdit title={title} id={id} />
-        <ModalDelete title={title} id={id} />
-      </HStack>
+      {editable && (
+        <HStack
+          space="xs"
+          justifyContent="flex-start"
+          width={'10%'}
+          alignItems="center"
+          pl={'$6'}
+        >
+          <ModalEdit title={title} id={id} />
+          <ModalDelete title={title} id={id} />
+        </HStack>
+      )}
     </HStack>
   );
 };

@@ -1,10 +1,5 @@
 import { useAuthContext } from '@/contexts/AuthContext';
-import {
-  Avatar,
-  AvatarFallbackText,
-  AvatarBadge,
-  AvatarImage,
-} from '@gluestack-ui/themed';
+import { Avatar, AvatarFallbackText, AvatarImage } from '@gluestack-ui/themed';
 
 export const AvatarUser = ({
   size,
@@ -12,7 +7,6 @@ export const AvatarUser = ({
   size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | undefined;
 }) => {
   const user = useAuthContext();
-  // console.log(user?.uid);
   return (
     <Avatar bgColor="$indigo600" size={size} marginRight={4}>
       {user?.photoURL && (

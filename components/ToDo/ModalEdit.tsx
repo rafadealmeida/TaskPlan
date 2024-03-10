@@ -31,11 +31,14 @@ export const ModalEdit = ({ title, id }: { title: string; id: string }) => {
     if (inputValue !== '') {
       await Task.edit(id, inputValue);
       setIsInvalid(false);
-      clearName();
-    } else setIsInvalid(true);
+      setShowModal(false);
+    } else {
+      resetName();
+      setIsInvalid(true);
+    }
   };
 
-  const clearName = () => setInputValue('');
+  const resetName = () => setInputValue(title);
   return (
     <Center width={1}>
       <Button
@@ -96,7 +99,6 @@ export const ModalEdit = ({ title, id }: { title: string; id: string }) => {
               borderWidth="$0"
               onPress={() => {
                 editTask();
-                setShowModal(false);
               }}
             >
               <ButtonText>Salvar</ButtonText>

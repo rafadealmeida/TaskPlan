@@ -1,32 +1,59 @@
-import { StyleSheet } from 'react-native';
-
-import { Text, View } from '@gluestack-ui/themed';
+import { AddTask } from '@/components/ToDo/AddTask';
 import { Page } from '@/components/Patterns/Page';
+import { TodoItem } from '@/components/ToDo/TodoItem';
+import { VStack, FlatList, Heading } from '@gluestack-ui/themed';
+import { Stack } from 'expo-router';
+import { ListRenderItem } from 'react-native';
+import { useTaskContext } from '@/contexts/TasksContext';
 
-export default function TabTwoScreen() {
+export default function Home() {
+  const tasksList = useTaskContext();
+
+  const Tasks: ListRenderItem<ToDoItem> = ({ item }) => {
+    if (item.complete) {
+      return (
+        <TodoItem
+          key={item.id}
+          title={item.name}
+          id={item.id}
+          complete={item.complete}
+          createdAt={item.createdAt}
+          editable={false}
+        />
+      );
+    } else return null;
+  };
   return (
     <Page>
-      <View style={styles.container}>
-        <Text style={styles.title}>Tab Two</Text>
-        <View style={styles.separator} />
-      </View>
+      <Stack.Screen
+        options={{
+          title: 'Concluídas',
+          // headerTintColor: '#FFF',
+          // headerStyle: {
+          //   backgroundColor: '#2F2F2F',
+          // },
+        }}
+      />
+      <VStack
+        // mt={'10%'}
+        width={'100%'}
+        height={'100%'}
+        space="md"
+        alignItems="center"
+        justifyContent="flex-start"
+        mt="$10"
+      >
+        <Heading>Tarefas concluídas</Heading>
+        {tasksList.length > 0 ? (
+          <FlatList
+            data={tasksList}
+            // @ts-ignore
+            renderItem={Tasks}
+          />
+        ) : (
+          <Heading>Não há tasks concluídas por enquanto</Heading>
+        )}
+      </VStack>
     </Page>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});

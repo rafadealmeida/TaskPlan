@@ -1,11 +1,14 @@
-import { HStack, Text, Progress } from "@gluestack-ui/themed";
+import { HStack, Text, Progress } from '@gluestack-ui/themed';
 
 interface IProgressBarProps {
   totalTasks: number;
   completedTasks: number;
 }
 
-export const ProgressBar = ({ totalTasks, completedTasks }: IProgressBarProps) => {
+export const ProgressBar = ({
+  totalTasks,
+  completedTasks,
+}: IProgressBarProps) => {
   const getProgress = () => {
     if (totalTasks === 0) {
       return 0;
@@ -14,7 +17,7 @@ export const ProgressBar = ({ totalTasks, completedTasks }: IProgressBarProps) =
   };
 
   return (
-    <HStack my="$4" alignItems="center" w="$full">
+    <HStack my="$4" alignItems="center" w="$80">
       <Progress flex={1} value={getProgress()} bg="$backgroundDark700" h="$1">
         <Progress.FilledTrack bg="$primary600" h="$1" />
       </Progress>

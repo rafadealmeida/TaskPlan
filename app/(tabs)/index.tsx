@@ -1,45 +1,13 @@
 import { AddTask } from '@/components/ToDo/AddTask';
 import { Page } from '@/components/Patterns/Page';
 import { TodoItem } from '@/components/ToDo/TodoItem';
-import { VStack, FlatList } from '@gluestack-ui/themed';
+import { VStack, FlatList, Heading } from '@gluestack-ui/themed';
 import { Stack } from 'expo-router';
-import { useEffect, useState } from 'react';
 import { ListRenderItem } from 'react-native';
-import {
-  collection,
-  doc,
-  onSnapshot,
-  orderBy,
-  query,
-} from 'firebase/firestore';
-import { db } from '@/services/firebase/firebaseConfig';
-import auth from '@react-native-firebase/auth';
+import { useTaskContext } from '@/contexts/TasksContext';
 
 export default function Home() {
-  const [tasksList, setTaskList] = useState<ToDoItem[] | []>([]);
-
-  const user = auth()?.currentUser;
-  useEffect(() => {
-    const userTasksCollectionRef = collection(
-      doc(db, 'Tasks', `${user?.uid}`),
-      'userTasks',
-    );
-
-    const unsubscribe = onSnapshot(
-      query(userTasksCollectionRef, orderBy('createdAt')),
-      (snapshot) => {
-        const updatedTasks = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          name: doc.data().name,
-          complete: doc.data().complete,
-          createdAt: doc.data().createdAt.seconds,
-        }));
-        setTaskList(updatedTasks);
-      },
-    );
-
-    return () => unsubscribe();
-  }, []);
+  const tasksList = useTaskContext();
 
   const Tasks: ListRenderItem<ToDoItem> = ({ item }) => {
     return (
@@ -49,6 +17,7 @@ export default function Home() {
         id={item.id}
         complete={item.complete}
         createdAt={item.createdAt}
+        editable={true}
       />
     );
   };
@@ -73,12 +42,14 @@ export default function Home() {
         mt="$10"
       >
         <AddTask />
-        {tasksList.length > 0 && (
+        {tasksList.length > 0 ? (
           <FlatList
             data={tasksList}
             // @ts-ignore
             renderItem={Tasks}
           />
+        ) : (
+          <Heading>Não há tasks por enquanto</Heading>
         )}
       </VStack>
     </Page>

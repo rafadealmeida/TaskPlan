@@ -12,6 +12,8 @@
 - Coleção -> userstasks
 - Documento -> individual para cada task
 
+EX:`Tasks/:idUser/usertasks/:idTask`
+
 E esta é uma maneira que nunca tinha trabalhado, então não tinha experiência com
 esta abordagem. Procurei documentação, porém não é algo centralizado possuindo
 algumas documentações referentes ao Firebase.Outra dificuldade foi tutoriais ,
@@ -104,23 +106,27 @@ uma coleção de documentos na coleção userTasks dentro do documento do usuár
 6. Criar observer para as atualizações de Tasks:
 
 ```typescript
-useEffect(() => {
-  const userTasksCollectionRef = collection(
-    doc(db, 'Tasks', `${user?.uid}`),
-    'userTasks',
-  );
+  useEffect(() => {
+    const userTasksCollectionRef = collection(
+      doc(db, 'Tasks', `${user?.uid}`),
+      'userTasks',
+    );
 
-  const unsubscribe = onSnapshot(userTasksCollectionRef, (snapshot) => {
-    const updatedTasks = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      name: doc.data().name,
-      complete: doc.data().complete,
-    }));
-    setTaskList(updatedTasks);
-  });
+    const unsubscribe = onSnapshot(
+      query(userTasksCollectionRef, orderBy('createdAt')),
+      (snapshot) => {
+        const updatedTasks = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          name: doc.data().name,
+          complete: doc.data().complete,
+          createdAt: doc.data().createdAt,
+        }));
+        setTaskList(updatedTasks);
+      },
+    );
 
-  return () => unsubscribe();
-}, []);
+    return () => unsubscribe();
+  }, []);
 ```
 
 Comportamento:
