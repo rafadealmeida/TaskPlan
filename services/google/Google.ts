@@ -4,8 +4,7 @@ import { router } from 'expo-router';
 
 GoogleSignin.configure({
   profileImageSize: 340,
-  webClientId:
-    '487766878338-6d746apge6c47g3orjno2jrla50r8eae.apps.googleusercontent.com',
+  webClientId: process.env.EXPO_PUBLIC_CLIENT_ID,
   offlineAccess: true,
 });
 
@@ -14,6 +13,7 @@ async function SigIn() {
     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
 
     const responseUser = await GoogleSignin.signIn();
+    console.log(responseUser);
 
     const googleCredential = auth.GoogleAuthProvider.credential(
       responseUser.idToken,

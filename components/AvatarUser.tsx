@@ -5,7 +5,6 @@ import {
   AvatarBadge,
   AvatarImage,
 } from '@gluestack-ui/themed';
-import auth from '@react-native-firebase/auth';
 
 export const AvatarUser = ({
   size,
@@ -13,6 +12,7 @@ export const AvatarUser = ({
   size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | undefined;
 }) => {
   const user = useAuthContext();
+  // console.log(user?.uid);
   return (
     <Avatar bgColor="$indigo600" size={size} marginRight={4}>
       {user?.photoURL && (
