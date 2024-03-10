@@ -1,5 +1,4 @@
 import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
 import {
   doc,
   getDoc,
@@ -7,12 +6,17 @@ import {
   getDocs,
   collection,
   deleteDoc,
-  onSnapshot,
   updateDoc,
+  serverTimestamp,
 } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 
 const user = auth()?.currentUser;
+
+const getTaskRef = (idTaks: string) => {
+  const taskref = doc(db, 'Tasks', `${user?.uid}`, 'userTasks', `${idTaks}`);
+  return taskref;
+};
 
 const add = async (name: string) => {
   const userTasksDocRef = doc(db, 'Tasks', `${user?.uid}`);
@@ -22,11 +26,12 @@ const add = async (name: string) => {
   await setDoc(doc(userTasksCollectionRef), {
     name: name,
     complete: false,
+    createdAt: serverTimestamp(),
   });
 };
 
 const edit = async (idTaks: string, newName: string) => {
-  const taskref = doc(db, 'Tasks', `${user?.uid}`, 'userTasks', `${idTaks}`);
+  const taskref = getTaskRef(idTaks);
   try {
     await updateDoc(taskref, {
       name: newName,
@@ -36,7 +41,7 @@ const edit = async (idTaks: string, newName: string) => {
   }
 };
 const toggleStatus = async (idTaks: string, newStatus: boolean) => {
-  const taskref = doc(db, 'Tasks', `${user?.uid}`, 'userTasks', `${idTaks}`);
+  const taskref = getTaskRef(idTaks);
   try {
     await updateDoc(taskref, {
       complete: newStatus,
@@ -47,7 +52,7 @@ const toggleStatus = async (idTaks: string, newStatus: boolean) => {
 };
 
 const remove = async (idTaks: string) => {
-  const taskref = doc(db, 'Tasks', `${user?.uid}`, 'userTasks', `${idTaks}`);
+  const taskref = getTaskRef(idTaks);
   try {
     await deleteDoc(taskref);
   } catch (error) {

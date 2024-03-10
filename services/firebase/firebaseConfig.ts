@@ -1,16 +1,14 @@
-
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAm5qfAjozye8LNOVreV8sLqyA_79ROZdU",
-  authDomain: "taskplan-2623b.firebaseapp.com",
-  projectId: "taskplan-2623b",
-  storageBucket: "taskplan-2623b.appspot.com",
-  messagingSenderId: "487766878338",
-  appId: "1:487766878338:web:2467fd5b0d565495a9ac9b"
+  apiKey: process.env.EXPO_PUBLIC_API_KEY,
+  authDomain: process.env.EXPO_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.EXPO_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.EXPO_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.EXPO_PUBLIC_MESSAGING_SENDER_ID,
+  appId: process.env.EXPO_PUBLIC_APP_ID,
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);

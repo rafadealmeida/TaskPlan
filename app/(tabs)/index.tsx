@@ -4,9 +4,14 @@ import { TodoItem } from '@/components/ToDo/TodoItem';
 import { VStack, FlatList } from '@gluestack-ui/themed';
 import { Stack } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { ListRenderItem, ListRenderItemInfo } from 'react-native';
-import { Task } from '@/services/firebase/controller/Task';
-import { collection, doc, onSnapshot } from 'firebase/firestore';
+import { ListRenderItem } from 'react-native';
+import {
+  collection,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+} from 'firebase/firestore';
 import { db } from '@/services/firebase/firebaseConfig';
 import auth from '@react-native-firebase/auth';
 
@@ -20,14 +25,18 @@ export default function Home() {
       'userTasks',
     );
 
-    const unsubscribe = onSnapshot(userTasksCollectionRef, (snapshot) => {
-      const updatedTasks = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        name: doc.data().name,
-        complete: doc.data().complete,
-      }));
-      setTaskList(updatedTasks);
-    });
+    const unsubscribe = onSnapshot(
+      query(userTasksCollectionRef, orderBy('createdAt')),
+      (snapshot) => {
+        const updatedTasks = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          name: doc.data().name,
+          complete: doc.data().complete,
+          createdAt: doc.data().createdAt.seconds,
+        }));
+        setTaskList(updatedTasks);
+      },
+    );
 
     return () => unsubscribe();
   }, []);
@@ -39,6 +48,7 @@ export default function Home() {
         title={item.name}
         id={item.id}
         complete={item.complete}
+        createdAt={item.createdAt}
       />
     );
   };

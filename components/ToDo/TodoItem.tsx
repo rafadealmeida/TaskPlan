@@ -13,23 +13,34 @@ export const TodoItem = ({
   title,
   id,
   complete,
+  createdAt,
 }: {
   title: string;
   id: string;
   complete: boolean;
+  createdAt: any;
 }) => {
   const editTask = async () => {
     await Task.toggleStatus(id, !complete);
   };
 
   return (
-    <HStack justifyContent="center" mr={'6%'}>
-      <HStack width={'80%'} justifyContent="flex-start">
+    <HStack
+      justifyContent="center"
+      // mr={'6%'}
+      backgroundColor="$backgroundDark800"
+      my={4}
+      pr={'4%'}
+      py={4}
+      borderRadius={4}
+    >
+      <HStack width={'70%'} justifyContent="flex-start">
         <Checkbox
           value={`${complete}`}
           isChecked={complete}
           onChange={editTask}
           aria-label="CheckBox para marcar se a tarefa está feita ou não"
+          ml={'-$5'}
         >
           <CheckboxIndicator
             mr="$4"
@@ -56,18 +67,13 @@ export const TodoItem = ({
       </HStack>
       <HStack
         space="xs"
-        justifyContent="center"
+        justifyContent="flex-start"
         width={'10%'}
         alignItems="center"
+        pl={'$6'}
       >
         <ModalEdit title={title} id={id} />
         <ModalDelete title={title} id={id} />
-        {/* <Button borderRadius="$full" size="lg" p="$3.5" bg="$" width={5}>
-          <ButtonIcon as={EditIcon} />
-        </Button> */}
-        {/* <Button borderRadius="$full" size="lg" p="$3.5" bg="$" width={5}>
-          <ButtonIcon as={TrashIcon} color="$red700" />
-        </Button> */}
       </HStack>
     </HStack>
   );

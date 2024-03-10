@@ -37,11 +37,11 @@ export const ModalEdit = ({ title, id }: { title: string; id: string }) => {
 
   const clearName = () => setInputValue('');
   return (
-    <Center>
+    <Center width={1}>
       <Button
         borderRadius="$full"
-        size="lg"
-        p="$3.5"
+        size="sm"
+        p="$1"
         bg="$"
         width={5}
         onPress={() => setShowModal(true)}

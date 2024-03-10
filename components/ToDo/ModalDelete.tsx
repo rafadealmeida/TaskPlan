@@ -15,9 +15,6 @@ import {
   ModalBody,
   ModalFooter,
   ButtonIcon,
-  EditIcon,
-  Input,
-  InputField,
   TrashIcon,
 } from '@gluestack-ui/themed';
 import { Task } from '@/services/firebase/controller/Task';
@@ -25,11 +22,11 @@ import { Task } from '@/services/firebase/controller/Task';
 export const ModalDelete = ({ title, id }: { title: string; id: string }) => {
   const [showModal, setShowModal] = useState(false);
   const ref = React.useRef(null);
-  // console.log(title, id);
 
   const deleteTask = async () => {
     try {
       await Task.remove(id);
+      setShowModal(false);
     } catch (error) {
       console.log(error);
     }
@@ -83,7 +80,6 @@ export const ModalDelete = ({ title, id }: { title: string; id: string }) => {
               borderWidth="$0"
               onPress={() => {
                 deleteTask();
-                setShowModal(false);
               }}
             >
               <ButtonText>Apagar</ButtonText>

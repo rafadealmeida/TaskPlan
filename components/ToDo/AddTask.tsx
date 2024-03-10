@@ -18,7 +18,6 @@ export const AddTask = () => {
   const [isInvalid, setIsInvalid] = useState<boolean>(false);
 
   const createTask = async () => {
-    console.log('task');
     if (inputValue !== '') {
       await Task.add(inputValue);
       setIsInvalid(false);
