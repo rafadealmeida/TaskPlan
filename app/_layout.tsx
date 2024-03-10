@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import auth from '@react-native-firebase/auth';
 import AuthContextProvider from '@/contexts/AuthContext';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { AppProvider } from '@/contexts';
 
 export { ErrorBoundary } from 'expo-router';
 
@@ -48,23 +49,19 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  // const colorScheme = useColorScheme();
-
   return (
-    <GluestackUIProvider colorMode="dark" config={config}>
-      <AuthContextProvider>
-        <SafeAreaProvider>
-          <Stack screenOptions={{
-            contentStyle:{
-              backgroundColor:'#2F2F2F'
-            }
-          }}>
-            <Stack.Screen name="index" options={{ headerShown: false }} />
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="perfil" options={{ presentation: 'modal' }} />
-          </Stack>
-        </SafeAreaProvider>
-      </AuthContextProvider>
-    </GluestackUIProvider>
+    <AppProvider>
+      <Stack
+        screenOptions={{
+          contentStyle: {
+            backgroundColor: '#2F2F2F',
+          },
+        }}
+      >
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="perfil" options={{ presentation: 'modal' }} />
+      </Stack>
+    </AppProvider>
   );
 }

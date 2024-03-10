@@ -1,11 +1,5 @@
 import { useAuthContext } from '@/contexts/AuthContext';
-import {
-  Avatar,
-  AvatarFallbackText,
-  AvatarBadge,
-  AvatarImage,
-} from '@gluestack-ui/themed';
-import auth from '@react-native-firebase/auth';
+import { Avatar, AvatarFallbackText, AvatarImage } from '@gluestack-ui/themed';
 
 export const AvatarUser = ({
   size,

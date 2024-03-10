@@ -1,10 +1,26 @@
+import { AddTask } from '@/components/ToDo/AddTask';
 import { Page } from '@/components/Patterns/Page';
-import { Google } from '@/services/google/Google';
-import { VStack, Heading, Button, ButtonText } from '@gluestack-ui/themed';
-import { Stack, useRouter } from 'expo-router';
+import { TodoItem } from '@/components/ToDo/TodoItem';
+import { VStack, FlatList, Heading } from '@gluestack-ui/themed';
+import { Stack } from 'expo-router';
+import { ListRenderItem } from 'react-native';
+import { useTaskContext } from '@/contexts/TasksContext';
 
 export default function Home() {
-  const router = useRouter();
+  const tasksList = useTaskContext();
+
+  const Tasks: ListRenderItem<ToDoItem> = ({ item }) => {
+    return (
+      <TodoItem
+        key={item.id}
+        title={item.name}
+        id={item.id}
+        complete={item.complete}
+        createdAt={item.createdAt}
+        editable={true}
+      />
+    );
+  };
   return (
     <Page>
       <Stack.Screen
@@ -22,9 +38,19 @@ export default function Home() {
         height={'100%'}
         space="md"
         alignItems="center"
-        justifyContent={'center'}
+        justifyContent="flex-start"
+        mt="$10"
       >
-        <Heading pb={10}>Home</Heading>
+        <AddTask />
+        {tasksList.length > 0 ? (
+          <FlatList
+            data={tasksList}
+            // @ts-ignore
+            renderItem={Tasks}
+          />
+        ) : (
+          <Heading>Não há tasks por enquanto</Heading>
+        )}
       </VStack>
     </Page>
   );
