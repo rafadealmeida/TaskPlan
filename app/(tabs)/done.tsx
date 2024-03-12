@@ -29,7 +29,7 @@ export default function Home() {
       <StatusBar style="light" />
       <Stack.Screen
         options={{
-          title: 'Tarefas',
+          title: 'Concluídas',
           headerTintColor: '#FFF',
           headerStyle: {
             backgroundColor: '#171717',

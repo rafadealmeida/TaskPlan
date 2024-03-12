@@ -6,6 +6,8 @@ import { Stack } from 'expo-router';
 import { ListRenderItem } from 'react-native';
 import { useTaskContext } from '@/contexts/TasksContext';
 import { StatusBar } from 'expo-status-bar';
+import { Spinner } from '@gluestack-ui/themed';
+import { Suspense } from 'react';
 
 export default function Home() {
   const tasksList = useTaskContext();
@@ -47,12 +49,15 @@ export default function Home() {
         mt="$10"
       >
         <AddTask />
+
         {tasksList.length > 0 ? (
-          <FlatList
-            data={tasksList}
-            // @ts-ignore
-            renderItem={Tasks}
-          />
+          <Suspense fallback={<Spinner size="large" />}>
+            <FlatList
+              data={tasksList}
+              // @ts-ignore
+              renderItem={Tasks}
+            />
+          </Suspense>
         ) : (
           <Heading>Não há tasks por enquanto</Heading>
         )}

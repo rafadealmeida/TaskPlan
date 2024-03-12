@@ -13,11 +13,13 @@ import { Stack } from 'expo-router';
 import bannermobile from '../assets/images/bannermobile.jpg';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Page } from '@/components/Patterns/Page';
+import { StatusBar } from 'expo-status-bar';
 
 export default function SignIn() {
   return (
     <SafeAreaView>
       <Page>
+        <StatusBar style="auto" />
         <Stack.Screen
           options={{
             headerShown: false,
