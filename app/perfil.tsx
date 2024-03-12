@@ -28,10 +28,13 @@ export default function Perfil() {
         <Stack.Screen
           options={{
             title: 'Perfil',
-            // headerTintColor:'#FFF',
-            // headerStyle:{
-            //   backgroundColor:'#2F2F2F'
-            // }
+            headerTintColor: '#FFF',
+            headerStyle: {
+              backgroundColor: '#171717',
+              // @ts-ignore
+              elevation: 0,
+              shadowOpacity: 0,
+            },
           }}
         />
         <VStack

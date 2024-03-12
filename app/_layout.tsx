@@ -1,13 +1,9 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { GluestackUIProvider, useColorMode } from '@gluestack-ui/themed';
-import { config } from '@gluestack-ui/config';
 import { useFonts } from 'expo-font';
 import { Stack, router } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import auth from '@react-native-firebase/auth';
-import AuthContextProvider from '@/contexts/AuthContext';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppProvider } from '@/contexts';
 
 export { ErrorBoundary } from 'expo-router';
@@ -51,13 +47,7 @@ export default function RootLayout() {
 function RootLayoutNav() {
   return (
     <AppProvider>
-      <Stack
-        screenOptions={{
-          contentStyle: {
-            backgroundColor: '#2F2F2F',
-          },
-        }}
-      >
+      <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="perfil" options={{ presentation: 'modal' }} />

@@ -32,7 +32,9 @@ export const TodoItem = ({
     <HStack
       justifyContent="center"
       // mr={'6%'}
-      backgroundColor="$backgroundDark800"
+      backgroundColor={
+        complete ? '$backgroundDarkSuccess' : '$backgroundDark800'
+      }
       my={4}
       pr={'4%'}
       py={4}
