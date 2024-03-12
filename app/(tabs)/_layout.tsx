@@ -43,6 +43,13 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="check-circle" color={color} />
           ),
+          headerRight: () => (
+            <Link href="/perfil" asChild>
+              <Pressable>
+                <AvatarUser size={'md'} />
+              </Pressable>
+            </Link>
+          ),
         }}
       />
     </Tabs>

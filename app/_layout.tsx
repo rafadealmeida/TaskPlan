@@ -51,13 +51,7 @@ export default function RootLayout() {
 function RootLayoutNav() {
   return (
     <AppProvider>
-      <Stack
-        screenOptions={{
-          contentStyle: {
-            backgroundColor: '#2F2F2F',
-          },
-        }}
-      >
+      <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="perfil" options={{ presentation: 'modal' }} />

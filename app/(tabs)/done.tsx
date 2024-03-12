@@ -5,6 +5,7 @@ import { VStack, FlatList, Heading } from '@gluestack-ui/themed';
 import { Stack } from 'expo-router';
 import { ListRenderItem } from 'react-native';
 import { useTaskContext } from '@/contexts/TasksContext';
+import { StatusBar } from 'expo-status-bar';
 
 export default function Home() {
   const tasksList = useTaskContext();
@@ -25,13 +26,17 @@ export default function Home() {
   };
   return (
     <Page>
+      <StatusBar style="light" />
       <Stack.Screen
         options={{
-          title: 'Concluídas',
-          // headerTintColor: '#FFF',
-          // headerStyle: {
-          //   backgroundColor: '#2F2F2F',
-          // },
+          title: 'Tarefas',
+          headerTintColor: '#FFF',
+          headerStyle: {
+            backgroundColor: '#171717',
+            // @ts-ignore
+            elevation: 0,
+            shadowOpacity: 0,
+          },
         }}
       />
       <VStack
